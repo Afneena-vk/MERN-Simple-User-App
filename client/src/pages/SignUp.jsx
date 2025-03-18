@@ -7,6 +7,7 @@ const SignUp = () => {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
      setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -55,12 +56,16 @@ const SignUp = () => {
       });
       const data = await response.json();
       console.log("data", data);
+      // console.log("Response Status:", response.status);
+      // console.log("Response Data:", data);
+     
+
       setLoading(false);
       if (data.success === false) {
         setError(true);
         return;
       }
-  //     navigate("/sign-in");
+    navigate("/sign-in");
     } catch (err) {
       setLoading(false);
       setError(true);
@@ -108,7 +113,7 @@ const SignUp = () => {
       <div className="flex gap-2 mt-5 text-lg">
         <p>Have an account?</p>
         <Link to="/sign-in">
-          <span className="text-blue-500">Sign in</span>
+          <span className="text-blue-500">Sign In</span>
         </Link>
       </div>
       
