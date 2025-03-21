@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice.js";
 import { useDispatch ,useSelector} from "react-redux"
-import OAuth from '../components/OAuth.jsx';
+
+import OAuthAdmin from '../components/OAuthAdmin.jsx';
 
 const AdminSignIn = () => {
 
@@ -73,7 +74,8 @@ const AdminSignIn = () => {
         >
           {loading ? "Loading..." : "Sign In"}
         </button>
-        <OAuth />
+
+        <OAuthAdmin/>
       </form>
 
      
