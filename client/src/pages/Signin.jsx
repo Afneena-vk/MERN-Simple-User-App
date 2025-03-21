@@ -56,6 +56,7 @@ const SignIn = () => {
           id="email"
           onChange={handleChange}
           className="bg-slate-100 p-3 rounded-lg text-lg"
+        
         />
         
         <input
@@ -64,6 +65,7 @@ const SignIn = () => {
           id="password"
           onChange={handleChange}
           className="bg-slate-100 p-3 rounded-lg text-lg"
+          
         />
         <button
           className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95

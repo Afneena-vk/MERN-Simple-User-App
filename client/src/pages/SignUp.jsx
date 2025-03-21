@@ -1,49 +1,61 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from '../components/OAuth';
+import {
+  validateUsername,validateEmail,validatePassword
+} from '../validation';
 
 const SignUp = () => {
 
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [usernameError, setUsernameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
      setFormData({ ...formData, [e.target.id]: e.target.value });
   };
-  console.log( formData);
+  
+  console.log("formData", formData);
 
    const handleSubmit = async (e) => {
      e.preventDefault();
-  //   const isUsernameValid = validateUsername(formData.username);
-  //   const isEmailValid = validateEmail(formData.email);
-  //   const isPasswordValid = validatePassword(formData.password);
-  //   if (!isUsernameValid || !isEmailValid || !isPasswordValid) {
-  //     if (!isUsernameValid) {
-  //       setUsernameError(
-  //         "Invalid username. It should be between 3 and 15 characters."
-  //       );
-  //     } else {
-  //       setUsernameError("");
-  //     }
 
-  //     if (!isEmailValid) {
-  //       setEmailError("Invalid email format.");
-  //     } else {
-  //       setEmailError("");
-  //     }
 
-  //     if (!isPasswordValid) {
-  //       setPasswordError(
-  //         "Password must be at least 5 characters long and include both letters and numbers."
-  //       );
-  //     } else {
-  //       setPasswordError("");
-  //     }
+    const isUsernameValid = validateUsername(formData.username);
+    const isEmailValid = validateEmail(formData.email);
+    const isPasswordValid = validatePassword(formData.password);
+    if (!isUsernameValid || !isEmailValid || !isPasswordValid) {
+      if (!isUsernameValid) {
+        setUsernameError(
+          "Invalid username. It should be between 3 and 15 characters."
+        );
+      } else {
+        setUsernameError("");
+      }
 
-  //     return;
-  //   }
+      if (!isEmailValid) {
+        setEmailError("Invalid email format.");
+      } else {
+        setEmailError("");
+      }
+
+      if (!isPasswordValid) {
+        setPasswordError(
+          "Password must be at least 5 characters long and include both letters and numbers."
+        );
+      } else {
+        setPasswordError("");
+      }
+
+      return;
+    }
+
+
      try {
       setLoading(true);
       setError(false);
@@ -85,6 +97,10 @@ const SignUp = () => {
           onChange={handleChange}
           className="bg-slate-100 p-3 rounded-lg text-lg"
         />
+
+        {usernameError && (
+          <p className="text-red-500 text-sm">{usernameError}</p>
+        )}        
        
         <input
           type="email"
@@ -93,6 +109,8 @@ const SignUp = () => {
           onChange={handleChange}
           className="bg-slate-100 p-3 rounded-lg text-lg"
         />
+
+     {emailError && <p className="text-red-500 text-sm">{emailError}</p>}
         
         <input
           type="password"
@@ -101,6 +119,9 @@ const SignUp = () => {
           onChange={handleChange}
           className="bg-slate-100 p-3 rounded-lg text-lg"
         />
+         {passwordError && (
+          <p className="text-red-500 text-sm">{passwordError}</p>
+        )}
         <button
           className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95
         disabled:opacity-80v text-lg"
