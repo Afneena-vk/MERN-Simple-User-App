@@ -32,3 +32,5 @@ const App = () => {
     </BrowserRouter>
   );
 }
+
+export default App;

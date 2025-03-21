@@ -37,7 +37,7 @@ const AdminSignIn = () => {
         return;
       }
       dispatch(signInSuccess(data));
-     navigate("/admin");
+     navigate("/admin/dashboard");
     } catch (err) {
       dispatch(signInFailure(err));
     }
