@@ -3,22 +3,7 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const Dashboard = () => {
-    // const { currentUser } = useSelector((state)=>state.user);
-    // const [users,setUsers] = useState([]);
-    // useEffect(()=>{
-    //     const fetchUsers = async () => {
-    //         try{
-    //             const res = await fetch("/api/admin/users");
-    //             const data = await res.json();
-    //             console.log("data",data);
-    //             setUsers(data);
-    //         }catch(err){
-    //             toast.error("Failed to load users");
-    //         }
-    //     }
-    //     fetchUsers();
-    //     console.log("users",users);      
-    // },[])
+   
 
     const { currentUser } = useSelector((state) => state.user);
     const [users, setUsers] = useState([]);
@@ -67,8 +52,23 @@ const Dashboard = () => {
           toast.error("Failed to update user");
       }
     }
-    const handleDelete = (id) => {
-      
+    
+
+    const handleDelete = async (id) => {
+      try{
+          const res = await fetch(`/api/admin/user/delete/${id}`,{
+              method: 'DELETE'
+          })
+          const data = await res.json();
+          if(data.success){
+              setUsers(users.filter((user) => user._id !== id))
+              toast.success("User deleted successfully")
+          }else{
+              toast.error("Failed to delete user")
+          }
+      }catch(err){
+          toast.error("Error deleting user");
+      }
     }
 
   return (
