@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { validateUsername, validateEmail, validatePassword } from '../validation';
 
 const Dashboard = () => {
    
@@ -15,6 +16,8 @@ const Dashboard = () => {
     
     
     const usersPerPage = 3; 
+
+
     const [showCreateUserForm, setShowCreateUserForm] = useState(false);
     const [newUser, setNewUser] = useState({
       username: "",
@@ -94,7 +97,26 @@ const Dashboard = () => {
       }
     }
    
-    const handleCreateUser = async () => {
+  const handleCreateUser = async () => {
+
+      const isUsernameValid = validateUsername(newUser.username);
+      console.log("isUsernameValid",isUsernameValid);
+      
+     const isEmailValid = validateEmail(newUser.email);
+     const isPasswordValid = validatePassword(newUser.password);
+      
+        if(!isUsernameValid || !isEmailValid || !isPasswordValid){
+           if (!isUsernameValid) {
+          toast.error("Invalid username. It should be between 3 and 15 characters.");
+        }
+        if (!isEmailValid) {
+          toast.error("Invalid email format.");
+        }
+        if (!isPasswordValid) {
+          toast.error("Password must be at least 5 characters long and include both letters and numbers.");
+        }
+        return; 
+      }
       try {
         const res = await fetch("/api/admin/user/create", {
           method: "POST",

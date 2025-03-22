@@ -140,7 +140,7 @@ const SignUp = () => {
       
       <p className="text-red-700 mt-5">{error && "Something went wrong!"}</p>
     </div>
-  )
-}
+  );
+};
 
 export default SignUp
