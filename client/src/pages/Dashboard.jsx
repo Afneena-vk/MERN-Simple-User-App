@@ -56,6 +56,22 @@ const Dashboard = () => {
     };
 
     const handleUpdate = async (id) => {
+
+      const isUsernameValid = validateUsername(editedUser.username);
+      console.log("isUsernameValid", isUsernameValid);
+      const isEmailValid = validateEmail(editedUser.email);
+      if (!isUsernameValid || !isEmailValid ) {
+        if (!isUsernameValid) {
+          toast.error(
+            "Invalid username. It should be between 3 and 15 characters."
+          );
+        }
+        if (!isEmailValid) {
+          toast.error("Invalid email format.");
+        }
+        return;
+      }
+
       try{
           const res = await fetch(`/api/admin/user/update/${id}`,{
               method: 'PUT',
